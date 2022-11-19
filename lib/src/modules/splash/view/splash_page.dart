@@ -15,12 +15,12 @@ class _SplashPageState extends State<SplashPage> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       await Future.delayed(Duration(seconds: 3));
-      Modular.to.navigate('/dashboard');
+      Modular.to.navigate('/dashboard/');
     });
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: Center(child: Text('icone app')));
+    return const Scaffold(body: Center(child: Text('icone app')));
   }
 }
