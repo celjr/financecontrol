@@ -3,7 +3,7 @@ import 'package:financecontrol/src/modules/outputs/core/models/purchase_model.da
 class InstallmentPurchaseModel extends PurchaseModel {
   final int installmentsNumber;
   InstallmentPurchaseModel(
-      {required this.installmentsNumber,
+      {this.installmentsNumber = 1,
       required super.id,
       required super.name,
       required super.value,
