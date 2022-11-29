@@ -11,8 +11,9 @@ class AppWidget extends StatelessWidget {
     return MaterialApp.router(
       title: 'Finance Control',
       theme: ThemeData(
-       
-        primarySwatch: Colors.blue,
+        useMaterial3: true,
+
+        colorSchemeSeed: Colors.green,
       ),
       routerDelegate: Modular.routerDelegate,
       routeInformationParser: Modular.routeInformationParser,
