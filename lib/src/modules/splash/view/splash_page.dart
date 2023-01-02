@@ -1,3 +1,4 @@
+import 'package:financecontrol/src/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -11,11 +12,11 @@ class SplashPage extends StatefulWidget {
 class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
-    // TODO: implement initState
+    
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((timeStamp) async {
       await Future.delayed(Duration(seconds: 3));
-      Modular.to.navigate('/dashboard/');
+      Modular.to.navigate(AppRoutes.dashboard());
     });
   }
 

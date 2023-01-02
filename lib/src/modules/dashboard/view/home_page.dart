@@ -161,14 +161,14 @@ class _HomePageState extends State<HomePage> {
     if (valueDouble > 0) {
       color = Theme.of(context).primaryColor;
       recommendation =
-          'Se quiser economizar ou investir uma graninha continua assim que vai sobrar um money esse mês';
+          'Se quiser economizar ou investir uma graninha continua assim que vai sobrar um money esse mês!';
     } else if (valueDouble < 0) {
       color = Colors.red;
       recommendation =
-          'olha tenta diminuir os gastos, e ganhar mais algum trocado ainda esse mês';
+          'Olha, tenta diminuir os gastos, e ganhar mais algum trocado ainda esse mês ainda!';
     } else {
       color = Colors.black;
-      recommendation = 'Está ok só não pode gastar mais nada';
+      recommendation = 'Está ok, só não pode gastar mais nada!';
     }
     return Padding(
       padding: const EdgeInsets.all(10.0),
@@ -179,7 +179,7 @@ class _HomePageState extends State<HomePage> {
             boxShadow: const [
               BoxShadow(color: Colors.black, blurRadius: 2.5, spreadRadius: 0.5)
             ]),
-        height: height,
+        
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
@@ -222,6 +222,7 @@ class _HomePageState extends State<HomePage> {
               Center(
                 child: Text(
                   recommendation,
+                  textAlign: TextAlign.center,
                   style: TextStyle(
                       fontWeight: FontWeight.w500,
                       fontSize: 14,

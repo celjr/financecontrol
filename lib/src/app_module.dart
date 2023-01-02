@@ -1,3 +1,4 @@
+import 'package:financecontrol/src/core/core_module.dart';
 import 'package:financecontrol/src/modules/dashboard/dashboard_module.dart';
 import 'package:financecontrol/src/modules/outputs/outputs_module.dart';
 import 'package:financecontrol/src/modules/splash/splash_module.dart';
@@ -8,11 +9,11 @@ import 'modules/inputs/inputs_module.dart';
 
 class AppModule extends Module {
   @override
-  // TODO: implement imports
   List<Module> get imports => [
     DashboardModule(),
     InputsModule(),
-    OutputsModule()
+    OutputsModule(),
+    CoreModule()
   ];
   @override
   List<Bind> get binds => [];
