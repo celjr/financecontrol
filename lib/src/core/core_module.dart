@@ -12,7 +12,7 @@ class CoreModule extends Module {
     Bind<LocalStorage>(
       ((i) => SharedPreferencesService(
             sharedPreferences: i(),
-          )),
+          )),export: true
     )
   ];
 }

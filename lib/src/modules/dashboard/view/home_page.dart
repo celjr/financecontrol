@@ -1,9 +1,14 @@
 import 'package:financecontrol/src/core/widgets/custom_bottom_bar.dart';
 import 'package:financecontrol/src/core/widgets/custom_button_bottom_bar.dart';
+import 'package:financecontrol/src/modules/inputs/core/models/inputs_model.dart';
 import 'package:flutter/material.dart';
 
+import '../../outputs/core/models/outputs_model.dart';
+
 class HomePage extends StatefulWidget {
-  const HomePage({super.key, required this.title});
+  final InputsModel inputs;
+  final OutputsModel outputs;
+  const HomePage({super.key, required this.title, required this.inputs, required this.outputs});
 
   final String title;
 

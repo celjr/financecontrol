@@ -8,7 +8,7 @@ class DashboardModule extends Module {
   @override
   final List<ModularRoute> routes = [
     ChildRoute('/',
-        child: ((context, args) => HomePage( title: 'Finance Control',)),
+        child: ((context, args) =>  HomePage( title: 'Finance Control',inputs: args.data[0], outputs: args.data[1],)),
         transition: TransitionType.fadeIn,
         duration: const Duration(milliseconds: 600)),
   ];

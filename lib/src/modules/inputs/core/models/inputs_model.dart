@@ -15,7 +15,9 @@ class InputsModel {
       }
     }
   }
-
+  factory InputsModel.empty(){
+    return InputsModel(inputs: []);
+  }
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'inputs': inputs.map((x) => x.toMap()).toList(),

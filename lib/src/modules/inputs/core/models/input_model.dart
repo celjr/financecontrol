@@ -2,11 +2,13 @@ import 'dart:convert';
 
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 class InputModel {
+  final int? id;
   final String description;
   final DateTime date;
   final double value;
   final bool isFixed;
   InputModel({
+    this.id,
     this.description = 'Without description',
     required this.date,
     required this.value,
