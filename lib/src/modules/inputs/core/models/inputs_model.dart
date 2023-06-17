@@ -6,6 +6,7 @@ import 'input_model.dart';
 class InputsModel {
   final List<InputModel> inputs;
   double totalInputs = 0;
+
   InputsModel({
     required this.inputs,
   }) {
@@ -15,6 +16,15 @@ class InputsModel {
       }
     }
   }
+
+  updateTotal(){
+    if (inputs.isNotEmpty) {
+      for (var input in inputs) {
+        totalInputs += input.value;
+      }
+    }
+  }
+
   factory InputsModel.empty(){
     return InputsModel(inputs: []);
   }
@@ -27,7 +37,7 @@ class InputsModel {
   factory InputsModel.fromMap(Map<String, dynamic> map) {
     return InputsModel(
       inputs: List<InputModel>.from(
-        (map['inputs'] as List<int>).map<InputModel>(
+        (map['inputs']).map<InputModel>(
           (x) => InputModel.fromMap(x as Map<String, dynamic>),
         ),
       ),

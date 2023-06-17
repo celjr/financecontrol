@@ -1,4 +1,6 @@
 import 'package:financecontrol/src/app_routes.dart';
+import 'package:financecontrol/src/modules/inputs/core/models/inputs_model.dart';
+import 'package:financecontrol/src/modules/outputs/core/models/outputs_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
@@ -6,7 +8,9 @@ import 'custom_button_bottom_bar.dart';
 
 class CustomBottomBar extends StatelessWidget {
   final String page;
-  const CustomBottomBar({super.key, required this.page});
+  final InputsModel? inputs;
+  final OutputsModel? outputs;
+  const CustomBottomBar({super.key, required this.page, required this.inputs, required this.outputs});
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +23,7 @@ class CustomBottomBar extends StatelessWidget {
             icon: Icons.home,
             label: 'Home',
             isSelected: page == 'home' ? true : false,
-            onTap: () => Modular.to.navigate(AppRoutes.dashboard()),
+            onTap: () => Modular.to.navigate(AppRoutes.dashboard(),arguments: [inputs,outputs]),
           ),
           CustomButtonBottomBar(
             icon: Icons.input,

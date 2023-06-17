@@ -1,4 +1,3 @@
-import 'package:financecontrol/src/core/core_module.dart';
 import 'package:financecontrol/src/core/services/local_storage/shared_preferences.dart';
 import 'package:financecontrol/src/modules/splash/bloc/splash_bloc.dart';
 import 'package:flutter_modular/flutter_modular.dart';

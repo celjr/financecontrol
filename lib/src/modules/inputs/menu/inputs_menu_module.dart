@@ -1,11 +1,17 @@
-import 'package:financecontrol/src/modules/outputs/menu/view/outputs_menu_page.dart';
+import 'package:financecontrol/src/core/services/local_storage/shared_preferences.dart';
 import 'package:flutter_modular/flutter_modular.dart';
 
+import 'bloc/inputs_menu_bloc.dart';
 import 'view/inputs_menu_page.dart';
 
 
 
 class InputsMenuModule extends Module {
+  @override
+  List<Bind> get binds => [
+        Bind.singleton(
+            (i) => InputsMenuBloc(localStorage: i<SharedPreferencesService>()))
+      ];
   
 
   @override

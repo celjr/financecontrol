@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:financecontrol/src/core/core_module.dart';
 import 'package:financecontrol/src/modules/dashboard/dashboard_module.dart';
 import 'package:financecontrol/src/modules/outputs/outputs_module.dart';
@@ -20,10 +22,18 @@ class AppModule extends Module {
 
   @override
   List<ModularRoute> get routes => [
-    ModuleRoute('/', module: SplashModule()),
+    ModuleRoute('/', module: SplashModule(), guards:  [InitialGuard()]),
     ModuleRoute('/dashboard', module:DashboardModule()),
     ModuleRoute('/inputs', module:InputsModule()),
     ModuleRoute('/outputs', module:OutputsModule()),
 
   ];
+}
+
+class InitialGuard extends RouteGuard {
+  @override
+  FutureOr<bool> canActivate(String path, ParallelRoute route) async {
+    await Modular.isModuleReady<AppModule>();
+    return true;
+  }
 }

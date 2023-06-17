@@ -9,10 +9,10 @@ class CoreModule extends Module {
   final List<Bind> binds = [
     AsyncBind<SharedPreferences>((i) => SharedPreferences.getInstance(),
         export: true),
-    Bind<LocalStorage>(
-      ((i) => SharedPreferencesService(
-            sharedPreferences: i(),
-          )),export: true
-    )
+    Bind.lazySingleton<LocalStorage>(
+        ((i) => SharedPreferencesService(
+              sharedPreferences: i<SharedPreferences>(),
+            )),
+        export: true)
   ];
 }

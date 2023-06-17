@@ -12,6 +12,8 @@ class InputsModule extends Module {
     InputsMenuModule()
   ];
 
+  
+
 
   @override
   final List<ModularRoute> routes = [

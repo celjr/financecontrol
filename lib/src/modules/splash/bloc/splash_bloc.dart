@@ -17,8 +17,9 @@ class SplashBloc extends Bloc<SplashEvent, SplashStates> {
     late InputsModel inputs;
     late OutputsModel outputs;
     try {
-      inputs = localStorage.getData('inputs');
-      outputs = localStorage.getData('outputs');
+      String inputsJson = localStorage.getData('inputs');
+      inputs = InputsModel.fromJson(inputsJson);
+      outputs = OutputsModel.empty();//OutputsModel.fromJson(localStorage.getData('outputs'));
 
       emit(state.getDataSuccess(inputs: inputs, outputs: outputs));
     } on SharedPreferencesException catch (e) {

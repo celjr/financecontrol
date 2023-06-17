@@ -1,14 +1,26 @@
+import 'package:financecontrol/src/core/utils/formatter.dart';
 import 'package:financecontrol/src/core/widgets/custom_bottom_bar.dart';
-import 'package:financecontrol/src/core/widgets/custom_button_bottom_bar.dart';
+import 'package:financecontrol/src/core/widgets/date_header_widget.dart';
+import 'package:financecontrol/src/core/widgets/input_dialog.dart';
+import 'package:financecontrol/src/modules/dashboard/bloc/events/home_event.dart';
+import 'package:financecontrol/src/modules/dashboard/bloc/home_bloc.dart';
+import 'package:financecontrol/src/modules/dashboard/bloc/states/home_state.dart';
+import 'package:financecontrol/src/modules/inputs/core/models/input_model.dart';
 import 'package:financecontrol/src/modules/inputs/core/models/inputs_model.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_modular/flutter_modular.dart';
 
 import '../../outputs/core/models/outputs_model.dart';
 
 class HomePage extends StatefulWidget {
-  final InputsModel inputs;
-  final OutputsModel outputs;
-  const HomePage({super.key, required this.title, required this.inputs, required this.outputs});
+  final InputsModel? inputs;
+  final OutputsModel? outputs;
+  const HomePage(
+      {super.key,
+      required this.title,
+      required this.inputs,
+      required this.outputs});
 
   final String title;
 
@@ -18,46 +30,80 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   @override
+  void initState() {
+    
+    final HomeBloc bloc = Modular.get<HomeBloc>();
+    bloc.add(InitEvent(inputs: widget.inputs, outputs: widget.outputs));
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final HomeBloc bloc = Modular.get<HomeBloc>();
     final screenSize = MediaQuery.of(context).size;
-    return Scaffold(
-      appBar: AppBar(centerTitle: true, title: Text(widget.title)),
-      bottomNavigationBar: const CustomBottomBar(page: 'home'),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
+    return BlocBuilder<HomeBloc,HomeStates>(
+      bloc: bloc,
+      builder: (context,state) {
+        return Scaffold(
+          appBar: AppBar(centerTitle: true, title: Text(widget.title)),
+          bottomNavigationBar: CustomBottomBar(
+            page: 'home',
+            inputs: state.inputs,
+            outputs: state.outputs,
+          ),
+          body: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
               children: [
-                _card(
-                    title: 'Entradas',
-                    value: '1000',
+                const DateHeaderWidget(),
+                SizedBox(
+                  height: screenSize.width * 0.05,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    _card(
+                        title: 'Entradas',
+                        value: state.inputs.totalInputs.toString(),
+                        width: screenSize.width * 0.42,
+                        height: screenSize.width * 0.4,
+                        icon: Icons.input,
+                        context: context,
+                        onTap: () {
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return InputDialog(
+                                  addButton: (InputModel input) {
+                                    bloc.add(AddInput(input: input));
+                                  },
+                                );
+                              });
+                        },
+                        color: Theme.of(context).primaryColor),
+                    _card(
+                        title: 'Saidas',
+                        value: state.outputs.totalOutputs.toString(),
+                        width: screenSize.width * 0.42,
+                        height: screenSize.width * 0.4,
+                        context: context,
+                        color: Colors.red,
+                        icon: Icons.output)
+                  ],
+                ),
+                _cardSaldo(
+                    title: 'Saldo',
+                    value: (state.balence)
+                        .toString(),
                     width: screenSize.width * 0.42,
                     height: screenSize.width * 0.4,
-                    icon: Icons.input,
-                    context: context,
-                    color: Theme.of(context).primaryColor),
-                _card(
-                    title: 'Saidas',
-                    value: '1000',
-                    width: screenSize.width * 0.42,
-                    height: screenSize.width * 0.4,
-                    context: context,
-                    color: Colors.red,
-                    icon: Icons.output)
+                    icon: Icons.savings_outlined,
+                    context: context),
               ],
             ),
-            _cardSaldo(
-                title: 'Saldo',
-                value: '-10',
-                width: screenSize.width * 0.42,
-                height: screenSize.width * 0.4,
-                icon: Icons.savings_outlined,
-                context: context)
-          ],
-        ),
-      ),
+          ),
+        );
+      }
     );
   }
 
@@ -184,7 +230,6 @@ class _HomePageState extends State<HomePage> {
             boxShadow: const [
               BoxShadow(color: Colors.black, blurRadius: 2.5, spreadRadius: 0.5)
             ]),
-        
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
@@ -211,7 +256,6 @@ class _HomePageState extends State<HomePage> {
                   ),
                 ],
               ),
-             
               Row(
                 children: [
                   const Expanded(child: SizedBox()),
