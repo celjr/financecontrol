@@ -8,13 +8,13 @@ class CreditCardModel {
   final String name;
   final List<InstallmentPurchaseModel> purchases;
   final double limit;
-  final DateTime dueCard; 
+  final int duedDayCard; 
   CreditCardModel({
      this.id,
     required this.name,
     required this.purchases,
     required this.limit,
-    required this.dueCard,
+    required this.duedDayCard,
   });
 
   Map<String, dynamic> toMap() {
@@ -23,7 +23,7 @@ class CreditCardModel {
       'name': name,
       'purchases': purchases.map((x) => x.toMap()).toList(),
       'limit': limit,
-      'dueCard': dueCard.millisecondsSinceEpoch,
+      'duedDayCard': duedDayCard,
     };
   }
 
@@ -31,9 +31,9 @@ class CreditCardModel {
     return CreditCardModel(
       id: map['id'] != null ? map['id'] as int : null,
       name: map['name'] as String,
-      purchases: List<InstallmentPurchaseModel>.from((map['purchases'] as List<int>).map<InstallmentPurchaseModel>((x) => InstallmentPurchaseModel.fromMap(x as Map<String,dynamic>),),),
+      purchases: List<InstallmentPurchaseModel>.from((map['purchases']).map<InstallmentPurchaseModel>((x) => InstallmentPurchaseModel.fromMap(x as Map<String,dynamic>),),),
       limit: map['limit'] as double,
-      dueCard: DateTime.fromMillisecondsSinceEpoch(map['dueCard'] as int),
+      duedDayCard: (map['duedDayCard'] as int),
     );
   }
 

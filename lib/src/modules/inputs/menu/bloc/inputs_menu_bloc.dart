@@ -19,9 +19,9 @@ class InputsMenuBloc extends Bloc<InputsMenuEvent, InputsMenuStates> {
       emit(state.loading());
 
       InputsModel inputs = event.inputs ?? InputsModel.fromJson(localStorage.getData('inputs'));
-      //OutputsModel outputs = event.outputs ?? localStorage.getData('outputs');
+      OutputsModel outputs = event.outputs ?? OutputsModel.fromJson(localStorage.getData('outputs'));
 
-      emit(state.success(inputs: inputs, outputs: OutputsModel.empty()));
+      emit(state.success(inputs: inputs, outputs: outputs));
     } on SharedPreferencesException catch (e) {
       emit(state.error(mensage: e.message));
     } catch (e) {

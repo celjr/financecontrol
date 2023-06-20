@@ -19,7 +19,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeStates> {
       emit(state.loading());
 
       InputsModel inputs = event.inputs ?? InputsModel.fromJson(localStorage.getData('inputs')) ;
-      OutputsModel outputs =  OutputsModel.empty();//event.outputs ?? OutputsModel.fromJson(localStorage.getData('outputs')) ;
+      OutputsModel outputs =  event.outputs ?? OutputsModel.fromJson(localStorage.getData('outputs')) ;
 
       emit(state.success(inputs: inputs, outputs: outputs));
     } on SharedPreferencesException catch (e) {

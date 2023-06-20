@@ -28,6 +28,7 @@ class CustomButtonBottomBar extends StatelessWidget {
           Text(
             label,
             style: TextStyle(
+              fontSize: 12,
               color: isSelected
                   ? Theme.of(context).primaryColor
                   : Theme.of(context).hintColor,

@@ -1,6 +1,4 @@
-import 'package:financecontrol/src/core/services/local_storage/local_storage.dart';
 import 'package:financecontrol/src/core/services/local_storage/shared_preferences.dart';
-import 'package:financecontrol/src/modules/inputs/core/models/input_model.dart';
 import 'package:financecontrol/src/modules/inputs/core/models/inputs_model.dart';
 import 'package:financecontrol/src/modules/outputs/core/models/outputs_model.dart';
 import 'package:financecontrol/src/modules/splash/bloc/events/splash_event.dart';
@@ -17,12 +15,26 @@ class SplashBloc extends Bloc<SplashEvent, SplashStates> {
     late InputsModel inputs;
     late OutputsModel outputs;
     try {
-      String inputsJson = localStorage.getData('inputs');
-      inputs = InputsModel.fromJson(inputsJson);
-      outputs = OutputsModel.empty();//OutputsModel.fromJson(localStorage.getData('outputs'));
+      String inputsJson;
+      String outputsJson;
+      if(await localStorage.containData('inputs')){
+       inputsJson = localStorage.getData('inputs');
+       inputs = InputsModel.fromJson(inputsJson);
+      }else{
+        inputs = InputsModel.empty();
+        localStorage.setData('inputs', inputs.toJson());
+      }
+      if(await localStorage.containData('outputs')){
+       outputsJson = localStorage.getData('outputs');
+       outputs = OutputsModel.fromJson(outputsJson);
+      }else{
+        outputs = OutputsModel.empty();
+        localStorage.setData('outputs', outputs.toJson());
+      }
+      
 
       emit(state.getDataSuccess(inputs: inputs, outputs: outputs));
-    } on SharedPreferencesException catch (e) {
+    } on SharedPreferencesException  {
       emit(state.getDataFail());
     } catch (e) {
       rethrow;

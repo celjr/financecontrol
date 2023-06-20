@@ -43,17 +43,17 @@ class OutputsModel {
   factory OutputsModel.fromMap(Map<String, dynamic> map) {
     return OutputsModel(
       purchases: List<PurchaseModel>.from(
-        (map['purchases'] as List<int>).map<PurchaseModel>(
+        (map['purchases']).map<PurchaseModel>(
           (x) => PurchaseModel.fromMap(x as Map<String, dynamic>),
         ),
       ),
       bills: List<BillModel>.from(
-        (map['bills'] as List<int>).map<BillModel>(
+        (map['bills']).map<BillModel>(
           (x) => BillModel.fromMap(x as Map<String, dynamic>),
         ),
       ),
       creditCards: List<CreditCardModel>.from(
-        (map['creditCards'] as List<int>).map<CreditCardModel>(
+        (map['creditCards']).map<CreditCardModel>(
           (x) => CreditCardModel.fromMap(x as Map<String, dynamic>),
         ),
       ),

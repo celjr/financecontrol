@@ -47,6 +47,11 @@ class SharedPreferencesService implements LocalStorage {
     return false;
   
   }
+  
+  @override
+  Future<bool> containData(String key) async {
+    return sharedPreferences.containsKey(key);
+  }
 }
 
 class SharedPreferencesException implements Exception {

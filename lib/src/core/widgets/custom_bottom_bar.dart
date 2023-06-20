@@ -17,7 +17,7 @@ class CustomBottomBar extends StatelessWidget {
     return BottomAppBar(
       child: Container(
         padding: const EdgeInsets.all(6),
-        height: MediaQuery.of(context).size.width * 0.15,
+        height: MediaQuery.of(context).size.width * 0.14,
         child: Row(mainAxisAlignment: MainAxisAlignment.spaceAround, children: [
           CustomButtonBottomBar(
             icon: Icons.home,
